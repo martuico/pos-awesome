@@ -11,7 +11,7 @@
         class="text-uppercase indigo--text"
       >
         <span class="font-weight-light">pos</span>
-        <span>awesome</span>
+        <span>Nomad's Hub</span>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
@@ -137,7 +137,10 @@ export default {
       drawer: false,
       mini: true,
       item: 0,
-      items: [{ text: 'POS', icon: 'mdi-point-of-sale' }],
+      items: [
+        { text: 'POS', icon: 'mdi-point-of-sale' },
+        { text: 'Bookings', icon: 'mdi-calendar-month-outline'}
+      ],
       page: '',
       fav: true,
       menu: false,
@@ -166,7 +169,8 @@ export default {
     },
     go_about() {
       const win = window.open(
-        'https://github.com/yrestom/POS-Awesome',
+        // 'https://github.com/yrestom/POS-Awesome',
+        'https://nomadshub.ph',
         '_blank'
       );
       win.focus();

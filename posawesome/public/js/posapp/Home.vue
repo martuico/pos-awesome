@@ -12,6 +12,7 @@
 <script>
 import Navbar from './components/Navbar.vue';
 import POS from './components/pos/Pos.vue';
+import Bookings from './components/pos/Bookings.vue';
 
 export default {
   data: function () {
@@ -22,6 +23,7 @@ export default {
   components: {
     Navbar,
     POS,
+    Bookings,
   },
   methods: {
     setPage(page) {

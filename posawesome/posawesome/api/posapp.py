@@ -260,7 +260,7 @@ def get_root_of(doctype):
 def get_items_groups():
     return frappe.db.sql(
         """
-        select name 
+        select name
         from `tabItem Group`
         where is_group = 0
         order by name
@@ -1008,7 +1008,7 @@ def get_offers(profile):
         """
         SELECT *
         FROM `tabPOS Offer`
-        WHERE 
+        WHERE
         disable = 0 AND
         company = %(company)s AND
         (pos_profile is NULL OR pos_profile  = '' OR  pos_profile = %(pos_profile)s) AND
@@ -1026,7 +1026,7 @@ def get_offers(profile):
 def get_customer_addresses(customer):
     return frappe.db.sql(
         """
-        SELECT 
+        SELECT
             address.name,
             address.address_line1,
             address.address_line2,

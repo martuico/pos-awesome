@@ -1,0 +1,2 @@
+
+import './posapp/posapp';
