@@ -19,13 +19,30 @@
                 ></v-text-field>
               </v-col>
               <v-col cols="6">
+                <v-select
+                  :items="[
+                    'Passport',
+                    'Drivers License',
+                    'International ID',
+                    'SSS ID',
+                    'Company ID',
+                    'School ID',
+                    'Postal ID',
+                    'Others'
+                  ]"
+                  :label="frappe._('ID Type')"
+                  dense
+                  v-model="id_type"
+                ></v-select>
+              </v-col>
+              <v-col cols="6">
                 <v-text-field
                   dense
                   color="indigo"
-                  :label="frappe._('Tax ID')"
+                  :label="frappe._('ID Number')"
                   background-color="white"
                   hide-details
-                  v-model="tax_id"
+                  v-model="id_number"
                 ></v-text-field>
               </v-col>
               <v-col cols="6">
@@ -144,15 +161,16 @@ export default {
     customerDialog: false,
     pos_profile: '',
     customer_name: '',
-    tax_id: '',
+    id_type: '', // change to id_type
+    id_number: '',
     mobile_no: '',
     email_id: '',
     referral_code: '',
     birthday: null,
     birthday_menu: false,
-    group: '',
+    group: 'Individual',
     groups: [],
-    territory: '',
+    territory: 'Philippines',
     territorys: [],
   }),
   watch: {},
@@ -198,7 +216,9 @@ export default {
         const args = {
           customer_name: this.customer_name,
           company: this.pos_profile.company,
-          tax_id: this.tax_id,
+          tax_id: '',
+          id_type: this.id_type,
+          id_number: this.id_number,
           mobile_no: this.mobile_no,
           email_id: this.email_id,
           referral_code: this.referral_code,
@@ -206,6 +226,7 @@ export default {
           customer_group: this.group,
           territory: this.territory,
         };
+
         frappe.call({
           method: 'posawesome.posawesome.api.posapp.create_customer',
           args: args,

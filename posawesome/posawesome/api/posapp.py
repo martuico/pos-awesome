@@ -24,6 +24,7 @@ from erpnext.accounts.doctype.loyalty_program.loyalty_program import (
 )
 from posawesome.posawesome.doctype.pos_coupon.pos_coupon import check_coupon_code
 
+from erpnext.hr.doctype.employee.employee import get_all_employee_emails
 # from posawesome import console
 
 
@@ -445,6 +446,7 @@ def submit_invoice(invoice, data):
     invoice_doc.flags.ignore_permissions = True
     frappe.flags.ignore_account_permission = True
     invoice_doc.posa_is_printed = 1
+    invoice_doc.staff = data.get("staff")
     invoice_doc.save()
 
     if frappe.get_value(
@@ -801,6 +803,8 @@ def create_customer(
     customer_name,
     company,
     tax_id,
+    id_type,
+    id_number,
     mobile_no,
     email_id,
     referral_code=None,
@@ -815,6 +819,8 @@ def create_customer(
                 "customer_name": customer_name,
                 "posa_referral_company": company,
                 "tax_id": tax_id,
+                "id_type": id_type,
+                "id_number": id_number,
                 "mobile_no": mobile_no,
                 "email_id": email_id,
                 "posa_referral_code": referral_code,
@@ -1404,3 +1410,14 @@ def get_customer_info(customer):
 
 def get_company_domain(company):
     return frappe.get_cached_value("Company", cstr(company), "domain")
+
+@frappe.whitelist()
+def get_staffs_list():
+    staffs = frappe.db.get_all('Employee',
+                    fields=["name", "employee_name", "prefered_email"]
+                )
+
+    data = []
+    for staff in staffs:
+        data.append(staff)
+    return data

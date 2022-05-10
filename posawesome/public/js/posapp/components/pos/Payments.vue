@@ -565,6 +565,9 @@
             </v-col>
           </v-row>
         </div>
+        <div class="px-1 py-0">
+          <Staff />
+        </div>
       </div>
     </v-card>
 
@@ -634,6 +637,8 @@
 
 <script>
 import { evntBus } from '../../bus';
+import Staff from './Staff.vue';
+
 export default {
   data: () => ({
     loading: false,
@@ -657,7 +662,12 @@ export default {
     pos_settings: '',
     customer_info: '',
     mpesa_modes: [],
+    staff: ''
   }),
+
+  components: {
+    Staff
+  },
 
   methods: {
     back_to_invoice() {
@@ -1205,6 +1215,10 @@ export default {
     evntBus.$on('set_mpesa_payment', (data) => {
       this.set_mpesa_payment(data);
     });
+    evntBus.$on('update_staff', (data) => {
+      this.staff = data;
+      this.invoice_doc.staff = data;
+    })
     document.addEventListener('keydown', this.shortPay.bind(this));
   },
 

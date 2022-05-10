@@ -33,8 +33,12 @@
               v-html="`ID: ${data.item.name}`"
             ></v-list-item-subtitle>
             <v-list-item-subtitle
-              v-if="data.item.tax_id"
-              v-html="`TAX ID: ${data.item.tax_id}`"
+              v-if="data.item.id_type"
+              v-html="`ID Type: ${data.item.id_type}`"
+            ></v-list-item-subtitle>
+            <v-list-item-subtitle
+              v-if="data.item.id_number"
+              v-html="`ID Number: ${data.item.id_number}`"
             ></v-list-item-subtitle>
             <v-list-item-subtitle
               v-if="data.item.email_id"
