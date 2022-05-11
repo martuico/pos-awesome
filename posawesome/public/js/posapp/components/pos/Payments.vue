@@ -567,6 +567,20 @@
         </div>
         <div class="px-1 py-0">
           <Staff />
+          <v-row>
+            <v-col>
+                <v-text-field
+                  dense
+                  outlined
+                  color="indigo"
+                  :label="frappe._('Transaction Reference')"
+                  background-color="white"
+                  hide-details
+                  v-model="invoice_doc.transaction_reference"
+                  type="text"
+                />
+            </v-col>
+          </v-row>
         </div>
       </div>
     </v-card>
@@ -1217,7 +1231,8 @@ export default {
     });
     evntBus.$on('update_staff', (data) => {
       this.staff = data;
-      this.invoice_doc.staff = data;
+      this.invoice_doc.employee = data.employee;
+      this.invoice_doc.employee_name = data.employee_name;
     })
     document.addEventListener('keydown', this.shortPay.bind(this));
   },

@@ -21,6 +21,7 @@
                             class="indigo--text subtitle-1"
                             v-html="data.item.prefered_email"/>
                         <v-list-item-subtitle v-html="data.item.name" />
+                        <v-list-item-subtitle v-html="data.item.employee_name" />
                     </v-list-item-content>
                 </template>
             </template>
@@ -45,8 +46,13 @@ export default {
         })
     },
     watch: {
-        staff() {
-            evntBus.$emit('update_staff', this.staff)
+        staff(val) {
+            const selected = this.staffs.filter(staf => staf.name === val)
+
+            evntBus.$emit('update_staff', {
+                employee: val,
+                employee_name: selected[0].employee_name
+            })
         }
     },
     methods: {
@@ -56,7 +62,6 @@ export default {
                 method: 'posawesome.posawesome.api.posapp.get_staffs_list',
                 async: false,
                 callback(r) {
-                    console.log(r)
                     const message = r.message
                     if(!r.exc) {
                         vm.staffs = message
