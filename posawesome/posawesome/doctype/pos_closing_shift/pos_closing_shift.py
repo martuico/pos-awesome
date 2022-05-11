@@ -114,7 +114,9 @@ def make_closing_shift_from_opening(opening_shift):
             'sales_invoice': d.name,
             'posting_date': d.posting_date,
             'grand_total': d.grand_total,
-            'customer': d.customer
+            'customer': d.customer,
+            'employee_name': d.employee_name,
+            'transaction_reference': d.transaction_reference
         }))
         closing_shift.grand_total += flt(d.grand_total)
         closing_shift.net_total += flt(d.net_total)

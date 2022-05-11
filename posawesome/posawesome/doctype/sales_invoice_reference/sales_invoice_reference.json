@@ -9,7 +9,9 @@
   "posting_date",
   "column_break_3",
   "customer",
-  "grand_total"
+  "grand_total",
+  "employee_name",
+  "transaction_reference"
  ],
  "fields": [
   {
@@ -48,11 +50,21 @@
    "in_list_view": 1,
    "label": "Amount",
    "reqd": 1
+  },
+  {
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name"
+  },
+  {
+   "fieldname": "transaction_reference",
+   "fieldtype": "Data",
+   "label": "Transaction Reference"
   }
  ],
  "istable": 1,
  "links": [],
- "modified": "2020-09-29 02:58:12.486831",
+ "modified": "2022-05-11 23:17:42.660919",
  "modified_by": "Administrator",
  "module": "POSAwesome",
  "name": "Sales Invoice Reference",
