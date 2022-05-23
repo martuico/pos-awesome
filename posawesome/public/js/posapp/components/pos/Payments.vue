@@ -143,6 +143,33 @@
                 {{ __('Request') }}
               </v-btn>
             </v-col>
+            <v-col v-if="payment.type === 'Bank'" :cols="12" class="pl-3">
+              <v-text-field
+                dense
+                outlined
+                color="indigo"
+                label="Last 4 Digit Card No."
+                background-color="white"
+                hide-details
+                v-model="payment.card_no"
+                type="text"
+                max="4"
+                :readonly="invoice_doc.is_return ? true : false"
+              ></v-text-field>
+            </v-col>
+            <v-col v-if="payment.type === 'Bank'" :cols="12" class="pl-3">
+              <v-text-field
+                dense
+                outlined
+                color="indigo"
+                label="Transaction Reference No."
+                background-color="white"
+                hide-details
+                v-model="payment.transaction_reference"
+                type="text"
+                :readonly="invoice_doc.is_return ? true : false"
+              ></v-text-field>
+            </v-col>
           </v-row>
         </div>
 
@@ -567,20 +594,6 @@
         </div>
         <div class="px-1 py-0">
           <Staff />
-          <v-row>
-            <v-col>
-                <v-text-field
-                  dense
-                  outlined
-                  color="indigo"
-                  :label="frappe._('Transaction Reference')"
-                  background-color="white"
-                  hide-details
-                  v-model="invoice_doc.transaction_reference"
-                  type="text"
-                />
-            </v-col>
-          </v-row>
         </div>
       </div>
     </v-card>
@@ -771,6 +784,31 @@ export default {
         frappe.utils.play_sound('error');
         return;
       }
+
+      const notValidPayments = this.invoice_doc.payments.filter(payment =>     payment.type === 'Bank' && payment.amount > 0 &&
+        !payment.card_no && !payment.transaction_reference )
+
+      console.log(notValidPayments)
+      if(notValidPayments.length > 0) {
+        evntBus.$emit('show_mesage', {
+          text: `Please add card no. or transaction reference to ${notValidPayments[0].mode_of_payment}` ,
+          color: 'error',
+        });
+        frappe.utils.play_sound('error');
+        return;
+      }
+
+      if(
+        this.staff === ''
+      ) {
+        evntBus.$emit('show_mesage', {
+          text: `Please assign cashier`,
+          color: 'error',
+        });
+        frappe.utils.play_sound('error');
+        return;
+      }
+
 
       this.submit_invoice();
       this.customer_credit_dict = [];
